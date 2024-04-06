@@ -17,4 +17,12 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
+RUN composer self-update
+
+RUN apt update && apt install -y php8.2-dev &&  echo | pecl install mongodb && echo "extension=mongodb.so" >> /etc/php/8.2/cli/php.ini && echo "extension=mongodb.so" >> /etc/php/8.2/fpm/php.ini
+
+RUN composer require mongodb/laravel-mongodb
+
+RUN /etc/init.d/php8.2-fpm restart && service nginx reload
+
 CMD ["/start.sh"]
