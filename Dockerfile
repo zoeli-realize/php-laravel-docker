@@ -21,6 +21,4 @@ RUN composer self-update
 
 RUN composer require mongodb/laravel-mongodb
 
-RUN service nginx reload
-
 CMD ["/start.sh"]
